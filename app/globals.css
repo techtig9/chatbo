@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Spec section 82: "use smooth scroll animations" — for the landing
+ * page's in-page anchor nav (Solutions/How it works/Features/Pricing).
+ * The prefers-reduced-motion override below already forced this back to
+ * "auto" defensively; this is the base rule it was written to guard. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Keyboard focus must always be visible — never suppressed for
+ * aesthetics. A lime outline alone has weak contrast against the new
+ * light-theme page background (both are light), so this pairs a dark
+ * outline (visible against light surfaces) with a soft lime halo
+ * (visible against dark surfaces like the sidebar) rather than relying
+ * on a single color to work everywhere. */
+:focus-visible {
+  outline: 2px solid theme("colors.ink");
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgb(195 245 60 / 0.35);
+}
+
+/*
+ * Homepage hero — the "anchor-line" groundedness demo (Brand & Design
+ * System spec). One shared 9s cycle, every element keyed to the same
+ * timeline via animation-delay: 0. Reset/hidden state lives at the very
+ * start of the cycle (0-3%) so the loop-restart jump is imperceptible
+ * during normal playback; the fully-revealed state is HELD from ~55%
+ * through 100%, which is deliberate — under prefers-reduced-motion
+ * (forced globally to animation-iteration-count: 1 and a near-zero
+ * duration above), every element races straight to its 100% keyframe
+ * and stays there via forwards fill. That means a reduced-motion user
+ * sees the complete, readable end state immediately, not a blank or
+ * half-drawn one.
+ */
+@keyframes hero-fade-rise {
+  0%, 3% { opacity: 0; transform: translateY(6px); }
+  15%, 100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-chip-in {
+  0%, 3% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes hero-line-draw {
+  0%, 3% { stroke-dashoffset: 1; opacity: 0; }
+  4% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes hero-answer-in {
+  0%, 3% { opacity: 0; transform: translateY(4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.hero-anim {
+  animation-duration: 9s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}

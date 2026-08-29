@@ -1,0 +1,369 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "chatbo.ai API",
+    "version": "1.1.0",
+    "description": "Programmatic access to Chatbo AI agents. Use API keys with scoped access. Responses include X-Request-Id for support and observability. Write requests may use Idempotency-Key for safe retries."
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "cb_live_..."
+      }
+    },
+    "schemas": {
+      "Bot": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "use_case": {
+            "type": "string",
+            "enum": [
+              "customer_support",
+              "lead_gen",
+              "faq",
+              "internal_docs",
+              "sales_assistant"
+            ]
+          },
+          "tone": {
+            "type": "string",
+            "enum": [
+              "professional",
+              "friendly",
+              "playful",
+              "formal",
+              "empathetic"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "published"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/bots": {
+      "get": {
+        "summary": "List bots",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Invalid or missing API key"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a bot (requires write scope)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "useCase",
+                  "tone",
+                  "fallbackBehavior"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "useCase": {
+                    "type": "string"
+                  },
+                  "tone": {
+                    "type": "string"
+                  },
+                  "fallbackBehavior": {
+                    "type": "string"
+                  },
+                  "businessContext": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "402": {
+            "description": "Bot limit reached for this plan"
+          }
+        }
+      }
+    },
+    "/bots/{id}": {
+      "get": {
+        "summary": "Get a bot",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a bot (requires write scope)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "draft",
+                      "published"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/bots/{id}/messages": {
+      "post": {
+        "summary": "Send a message and get a reply (10 credits per call)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "description": "Safely retry the same request without generating a duplicate response."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "message"
+                ],
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  },
+                  "conversationId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Omit to start a new conversation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reply generated"
+          },
+          "402": {
+            "description": "Insufficient credits"
+          }
+        }
+      }
+    },
+    "/conversations": {
+      "get": {
+        "summary": "List conversations across all bots",
+        "parameters": [
+          {
+            "name": "botId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter to one bot"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/bots/{id}/conversations": {
+      "post": {
+        "summary": "Start a conversation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "visitorId": {
+                    "type": "string",
+                    "maxLength": 200
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "404": {
+            "description": "Bot not found"
+          }
+        }
+      }
+    },
+    "/api/v1/bots/{id}/stream": {
+      "post": {
+        "summary": "Stream an agent response",
+        "description": "Sends a message and returns Server-Sent Events. Events include conversation, tool_call, token, gateway, done and error.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "text/event-stream response"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "402": {
+            "description": "Usage limit reached"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        }
+      }
+    }
+  }
+}

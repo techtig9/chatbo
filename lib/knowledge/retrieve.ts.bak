@@ -1,0 +1,63 @@
+import "server-only";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { embedText } from "@/lib/ai/gemini-embeddings";
+import {
+  filterRelevantChunks,
+  shouldTriggerFallback,
+  formatChunksForContext,
+  type RetrievedChunk,
+} from "./retrieval-logic";
+
+export interface RetrievalResult {
+  chunks: RetrievedChunk[];
+  contextBlock: string;
+  useFallback: boolean;
+}
+
+/**
+ * The full retrieval step for one incoming chat message: embed the
+ * question, fetch the top candidates from pgvector, filter to the ones
+ * that clear the relevance bar, and decide whether the bot's fallback
+ * should fire instead of a grounded answer.
+ */
+export async function retrieveForQuery(
+  botId: string,
+  query: string
+): Promise<RetrievalResult> {
+  const supabase = createAdminClient();
+
+  const queryEmbedding = await embedText(query, "query");
+
+  const { data, error } = await supabase.rpc("match_knowledge_chunks", {
+    p_bot_id: botId,
+    p_query_embedding: queryEmbedding,
+    p_match_count: 10,
+  });
+
+  if (error) {
+    throw new Error(`Retrieval query failed: ${error.message}`);
+  }
+
+  const candidates: RetrievedChunk[] = (data ?? []).map((row: {
+    id: string;
+    content: string;
+    source_id: string;
+    source_title: string;
+    similarity: number;
+  }) => ({
+    id: row.id,
+    content: row.content,
+    sourceId: row.source_id,
+    sourceTitle: row.source_title,
+    similarity: row.similarity,
+  }));
+
+  const relevant = filterRelevantChunks(candidates);
+  const useFallback = shouldTriggerFallback(relevant);
+
+  return {
+    chunks: relevant,
+    contextBlock: formatChunksForContext(relevant),
+    useFallback,
+  };
+}

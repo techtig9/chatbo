@@ -1,0 +1,10 @@
+alter table public.workflows add column if not exists execution_mode text not null default 'durable' check (execution_mode in ('inline','durable'));
+alter table public.workflows add column if not exists max_concurrency integer not null default 20;
+alter table public.workflows add column if not exists retry_count integer not null default 3;
+alter table public.workflows add column if not exists timeout_seconds integer not null default 900;
+alter table public.workflow_runs add column if not exists queued_at timestamptz;
+alter table public.workflow_runs add column if not exists attempt integer not null default 0;
+alter table public.workflow_runs add column if not exists cancelled_at timestamptz;
+alter table public.workflow_runs add column if not exists idempotency_key text;
+create unique index if not exists workflow_runs_idempotency_idx on public.workflow_runs(workflow_id, workspace_id, idempotency_key) where idempotency_key is not null;
+create index if not exists workflow_runs_status_idx on public.workflow_runs(workspace_id, status, created_at desc);

@@ -1,0 +1,13 @@
+import Link from "next/link";
+import { getCurrentUserAndWorkspace } from "@/lib/data/workspace";
+import { createClient } from "@/lib/supabase/server";
+import { CHANNELS } from "@/lib/channels";
+import { Radio, ArrowRight } from "lucide-react";
+export default async function ChannelsOverview() {
+  const { workspace } = await getCurrentUserAndWorkspace();
+  if (!workspace) return null;
+  const supabase = createClient();
+  const { data: bots } = await supabase.from("bots").select("id,name,status").eq("workspace_id", workspace.workspaceId).order("created_at", { ascending: false });
+  const { data: connections } = await supabase.from("channel_connections").select("bot_id,channel,status").eq("workspace_id", workspace.workspaceId);
+  return <div className="space-y-7"><div><p className="text-xs font-bold uppercase tracking-[0.16em] text-ink">Omnichannel</p><h1 className="mt-2 font-display text-2xl font-semibold text-ink">Channels</h1><p className="mt-2 max-w-2xl text-sm leading-6 text-slate">Deploy your AI agents across customer and team channels while keeping one shared brain for knowledge, memory, tools, security and analytics.</p></div><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{CHANNELS.map(c=><div key={c.key} className="rounded-2xl border border-mist bg-surface p-4"><p className="text-sm font-semibold text-ink">{c.name}</p><p className="mt-1 text-xs leading-5 text-slate">{c.description}</p></div>)}</div><section className="rounded-2xl border border-mist bg-surface p-5"><h2 className="font-display text-xl font-semibold text-ink">Choose an agent</h2><div className="mt-4 space-y-2">{(bots ?? []).map(bot=>{const count=(connections??[]).filter(c=>c.bot_id===bot.id && c.status==='connected').length;return <Link key={bot.id} href={`/dashboard/bots/${bot.id}/channels`} className="flex items-center justify-between rounded-xl border border-mist bg-paper p-4 hover:border-slate"><div><p className="text-sm font-semibold text-ink">{bot.name}</p><p className="mt-1 text-xs text-slate">{count} connected channel{count===1?'':'s'}</p></div><ArrowRight size={16} className="text-slate"/></Link>})}</div>{!(bots?.length) && <div className="py-8 text-center text-sm text-slate">Create an AI agent first, then connect channels here.</div>}</section><div className="rounded-2xl border border-signal/20 bg-signal/5 p-5 flex gap-3"><Radio size={20} className="mt-0.5 text-ink"/><div><p className="text-sm font-semibold text-ink">One agent, many channels</p><p className="mt-1 text-xs leading-5 text-slate">Channel adapters normalize messages into the same conversation engine, so improvements to your agent propagate everywhere.</p></div></div></div>;
+}
