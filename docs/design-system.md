@@ -74,6 +74,10 @@ ground is predictable and inspectable; alpha over an unknown parent is not.
 
 All computed at 10% over `#FAFAF7` (danger-hover at 20%, borders at 30%).
 
+Available in code as Tailwind colours — `bg-danger-soft`, `border-danger-border`,
+`bg-success-soft`, and so on. The existing `bg-x/10` alpha call sites still
+work; the tints are additive, and are what new work should use.
+
 ### 2.3 Spacing — 4px grid
 
 `2xs` 2 · `xs` 4 · `sm` 8 · `md` 12 · `lg` 16 · `xl` 20 · `2xl` 24 ·
@@ -96,6 +100,11 @@ Card padding 20. Grid gaps 16. Section breaks 48–64. Off-scale is a bug.
 | `Elevation/3 Overlay` | Dropdown, popover |
 | `Elevation/4 Modal` | Dialog, command palette |
 | `Focus/Ring` | 4px lime halo, pairs with a 2px ink outline |
+
+In code: `shadow-e1` … `shadow-e4`, plus `shadow-focus`. The older
+`shadow-glow` / `shadow-glow-sm` bundle a lime ring into the shadow — correct
+for a hovered accent surface, wrong as the system's only depth vocabulary.
+Use the neutral `e*` scale for depth and let the accent be a separate decision.
 
 A card is defined by its 1px border first, its shadow second.
 
@@ -145,6 +154,8 @@ A card is defined by its 1px border first, its shadow second.
 | `duration/slow` | 300 | Page transition, drawer, sheet |
 | `duration/slower` | 500 | Section scroll-reveal, chart draw |
 | `duration/deliberate` | 900 | Hero anchor-line, deploy success |
+
+In code: `duration-instant` … `duration-deliberate`.
 
 **Easing.** Entering → `ease-out`. Exiting → `ease-in`. Moving between
 two states → `ease-in-out`.
@@ -235,7 +246,7 @@ file in three ways worth knowing before editing it:
 1. **Tinted fills render solid.** `setBoundVariableForPaint` discards paint
    opacity, so Badge, the status Cards and the danger Button currently show
    saturated fills with unreadable labels. The fix is the tint tokens in
-   §2.2 — specified here, not yet applied in Figma.
+   §2.2 — now present in `tailwind.config.ts`, still to be applied in Figma.
 2. **Screens page is empty.** Landing, Dashboard, Agent Builder and
    Marketplace are designed in spec but not laid out.
 3. **Dark mode** is a documented direction, not a shipped theme.
