@@ -49,6 +49,13 @@ Components  (Button, Card, Badge, Input)
 | `color/status/warning` | `--color-ember` | `#C2670A` | Attention, not failure |
 | `color/status/danger` | `--color-danger` | `#D33232` | Blocking error |
 
+**Status colour as text.** `ember`, `danger` and `accent2` were tuned to read
+on white. On their own 10% tint they fall below 4.5:1 (measured 3.40, 4.06 and
+4.33). Use `ember-ink` `#9C5307`, `danger-ink` `#B82B2B`, `accent2-ink`
+`#3459C2` whenever the status colour is **text** — each clears 4.5:1 on the
+tint, on paper and on white. Keep the base tokens for fills, borders, dots and
+icons. Same split as `signal` / `signal-ink`.
+
 **The lime rule.** `signal` is a background/border colour. As text on a
 light surface it measures ~1.2:1 — nowhere near the 4.5:1 minimum. Any
 time the accent must be *text*, use `signal-ink`. Lime fills always carry
@@ -191,7 +198,9 @@ Tones `neutral · success · warning · danger · info · accent`.
 
 Always pairs a dot with a word — colour is never the only cue. `success`
 is a distinct green from the lime accent so "brand" and "healthy" never
-collide.
+collide. Fills use the `*-soft` tints; labels use the `-ink` text variants
+where the base token is too light on its own tint. The dot keeps the base
+colour, since it is a fill rather than text.
 
 ### Card — `components/ui/card.tsx`
 Variants `primary · secondary · metric · interactive · warning · success · danger`.
@@ -250,3 +259,7 @@ file in three ways worth knowing before editing it:
 2. **Screens page is empty.** Landing, Dashboard, Agent Builder and
    Marketplace are designed in spec but not laid out.
 3. **Dark mode** is a documented direction, not a shipped theme.
+4. **38 ad-hoc `bg-x/10 text-x` call sites** remain across `app/` — the
+   pattern `components/ui/badge.tsx` used before it moved to tints. They
+   inherit the same contrast shortfall and should migrate to the `*-soft`
+   fills and `-ink` text tokens.

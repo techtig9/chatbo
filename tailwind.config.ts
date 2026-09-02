@@ -81,6 +81,19 @@ const config: Config = {
         "info-soft": "#E7EBF4",
         "neutral-soft": "#EAEAE6",
         "signal-soft": "#E9ECDF",
+        // Text-safe status variants, the same idea as `signal-ink` above.
+        // The base `ember`/`danger`/`accent2` values were tuned to read on
+        // a *white* surface; on their own 10% tint they drop below the
+        // 4.5:1 normal-text minimum (measured: ember 3.40:1, danger 4.06:1,
+        // accent2 4.33:1 — and ember/danger already failed at 3.56 and 4.26
+        // against the pre-tint `bg-x/10`-over-white backgrounds too). These
+        // are darkened just enough to clear 4.5:1 against the tint, paper
+        // and white alike, so a status chip is legible wherever it lands.
+        // Use these when the status colour is TEXT; keep the base tokens
+        // for fills, borders, dots and icons.
+        "ember-ink": "#9C5307",
+        "danger-ink": "#B82B2B",
+        "accent2-ink": "#3459C2",
       },
       fontFamily: {
         // All three load via CDN <link> in app/layout.tsx (General

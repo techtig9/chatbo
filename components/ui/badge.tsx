@@ -8,13 +8,27 @@
  * connected/success" before this design system introduced a dedicated
  * `success` color, which is what this component now standardizes on.
  */
+/*
+ * Fills use the pre-blended `*-soft` tints rather than `bg-x/10`: an alpha
+ * fill composites against whatever is behind the badge, so the same `/10`
+ * rendered differently on a page vs. inside an `elevated` panel, and the
+ * contrast below could not be guaranteed. `neutral` also moves off `mist`,
+ * which is the border token and was doing duty as a fill.
+ *
+ * Text uses the `-ink` variants where the base token is too light on its
+ * own tint. Measured against the tint: ember 3.40:1 and danger 4.06:1 both
+ * failed the 4.5:1 minimum (and had already been failing at 3.56:1 / 4.26:1
+ * on the old alpha backgrounds), accent2 3.33:1 short at 4.33:1. The `-ink`
+ * values clear 4.5:1 on the tint, on paper and on white. The dot keeps the
+ * base colour — it is a fill, and it is decorative next to the label.
+ */
 const TONE_CLASSES: Record<string, string> = {
-  neutral: "bg-mist text-slate",
-  success: "bg-success/10 text-success",
-  warning: "bg-ember/10 text-ember",
-  danger: "bg-danger/10 text-danger",
-  info: "bg-accent2/10 text-accent2",
-  accent: "bg-signal/10 text-ink",
+  neutral: "bg-neutral-soft text-slate",
+  success: "bg-success-soft text-success",
+  warning: "bg-warning-soft text-ember-ink",
+  danger: "bg-danger-soft text-danger-ink",
+  info: "bg-info-soft text-accent2-ink",
+  accent: "bg-signal-soft text-ink",
 };
 
 export function Badge({
