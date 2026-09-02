@@ -95,7 +95,7 @@ export default async function SettingsPage({
                   <button
                     type="submit"
                     aria-label={`Remove ${member.email}`}
-                    className="rounded-lg p-1.5 text-slate hover:bg-paper hover:text-danger"
+                    className="rounded-lg p-1.5 text-slate hover:bg-paper hover:text-danger-ink"
                   >
                     <UserMinus size={15} />
                   </button>

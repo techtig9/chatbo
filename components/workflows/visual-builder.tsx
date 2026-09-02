@@ -44,11 +44,11 @@ const palette = Object.entries(NODE_META) as [WorkflowNodeType, typeof NODE_META
 // to nothing in production. This maps each of NODE_META's small, fixed
 // set of color keys to fully-static class strings instead.
 const COLOR_CLASSES: Record<string, { icon: string; badge: string; tint: string }> = {
-  accent2: { icon: "bg-accent2/10 text-accent2", badge: "text-accent2", tint: "bg-accent2/[0.04]" },
-  signal: { icon: "bg-signal/10 text-ink", badge: "text-ink", tint: "bg-signal/[0.04]" },
-  ember: { icon: "bg-ember/10 text-ember", badge: "text-ember", tint: "bg-ember/[0.04]" },
-  slate: { icon: "bg-mist text-slate", badge: "text-slate", tint: "bg-elevated" },
-  success: { icon: "bg-success/10 text-success", badge: "text-success", tint: "bg-success/[0.04]" },
+  accent2: { icon: "bg-info-soft text-accent2-ink", badge: "text-accent2", tint: "bg-accent2/[0.04]" },
+  signal: { icon: "bg-signal-soft text-ink", badge: "text-ink", tint: "bg-signal/[0.04]" },
+  ember: { icon: "bg-warning-soft text-ember-ink", badge: "text-ember-ink", tint: "bg-ember/[0.04]" },
+  slate: { icon: "bg-neutral-soft text-slate", badge: "text-slate", tint: "bg-elevated" },
+  success: { icon: "bg-success-soft text-success-ink", badge: "text-success", tint: "bg-success/[0.04]" },
 };
 
 const defaults: Record<WorkflowNodeType, Record<string, unknown>> = {
@@ -106,12 +106,12 @@ export function getNodeStatus(nodeId: string, steps: WorkflowRunStepSummary[], l
 
 const STATUS_META: Record<NodeExecStatus, { label: string; className: string; icon?: LucideIcon; spin?: boolean }> = {
   idle: { label: "", className: "" },
-  queued: { label: "Queued", className: "bg-mist text-slate" },
-  running: { label: "Running", className: "bg-signal/10 text-ink", icon: Loader2, spin: true },
-  waiting: { label: "Waiting", className: "bg-ember/10 text-ember", icon: UserCheck },
-  succeeded: { label: "Completed", className: "bg-success/10 text-success", icon: Check },
-  failed: { label: "Failed", className: "bg-danger/10 text-danger", icon: XIcon },
-  skipped: { label: "Skipped", className: "bg-mist text-slate", icon: MinusCircle },
+  queued: { label: "Queued", className: "bg-neutral-soft text-slate" },
+  running: { label: "Running", className: "bg-signal-soft text-ink", icon: Loader2, spin: true },
+  waiting: { label: "Waiting", className: "bg-warning-soft text-ember-ink", icon: UserCheck },
+  succeeded: { label: "Completed", className: "bg-success-soft text-success-ink", icon: Check },
+  failed: { label: "Failed", className: "bg-danger-soft text-danger-ink", icon: XIcon },
+  skipped: { label: "Skipped", className: "bg-neutral-soft text-slate", icon: MinusCircle },
 };
 
 export function VisualWorkflowBuilder({
@@ -241,7 +241,7 @@ export function VisualWorkflowBuilder({
             <>
               <div className="flex items-center justify-between">
                 <div><p className="text-xs uppercase tracking-wide text-slate">Selected node</p><h4 className="font-semibold">{active.name}</h4></div>
-                <button onClick={remove} className="rounded-lg p-2 text-danger hover:bg-danger/10"><Trash2 size={15} /></button>
+                <button onClick={remove} className="rounded-lg p-2 text-danger-ink hover:bg-danger-soft"><Trash2 size={15} /></button>
               </div>
               <label className="mt-4 block text-xs font-medium text-slate">Name
                 <input value={active.name} onChange={(e) => update({ name: e.target.value })} className="mt-1 w-full rounded-lg border border-mist bg-surface px-3 py-2 text-sm text-ink" />

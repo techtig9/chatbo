@@ -91,9 +91,17 @@ const config: Config = {
         // and white alike, so a status chip is legible wherever it lands.
         // Use these when the status colour is TEXT; keep the base tokens
         // for fills, borders, dots and icons.
+        // `ember` is the strongest case: at 3.83:1 on paper and 4.01:1 on
+        // white it fails the normal-text minimum on *every* surface in the
+        // system, tinted or not — so `text-ember` was never safe anywhere
+        // and `text-ember-ink` replaces it outright, not just on tints.
         "ember-ink": "#9C5307",
         "danger-ink": "#B82B2B",
         "accent2-ink": "#3459C2",
+        // `success` technically passes on its own tint at 4.52:1, but a
+        // 0.02 margin is not a margin — any future nudge to either value
+        // silently drops it under. This restores real headroom (5.09:1).
+        "success-ink": "#0E7134",
       },
       fontFamily: {
         // All three load via CDN <link> in app/layout.tsx (General

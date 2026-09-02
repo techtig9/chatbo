@@ -21,13 +21,13 @@ export function HeroDemo() {
       {/* Source chips */}
       <div className="relative mb-4 flex gap-2">
         <span
-          className="hero-anim rounded-full border border-signal/40 bg-signal/10 px-2.5 py-1 text-xs text-ink"
+          className="hero-anim rounded-full border border-signal/40 bg-signal-soft px-2.5 py-1 text-xs text-ink"
           style={{ animationName: "hero-chip-in", animationDelay: "0.9s" }}
         >
           Shipping FAQ.pdf
         </span>
         <span
-          className="hero-anim rounded-full border border-signal/40 bg-signal/10 px-2.5 py-1 text-xs text-ink"
+          className="hero-anim rounded-full border border-signal/40 bg-signal-soft px-2.5 py-1 text-xs text-ink"
           style={{ animationName: "hero-chip-in", animationDelay: "1.3s" }}
         >
           Return Policy

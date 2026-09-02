@@ -19,7 +19,7 @@ export default async function MultiAgentPage({ searchParams }: { searchParams: {
   const name = (id: string) => agents.find((a: any) => a.id === id)?.name || "Unknown agent";
   return <main className="mx-auto max-w-6xl px-6 py-8">
     <div className="flex items-start justify-between gap-4"><div><div className="flex items-center gap-2"><Network size={23}/><h1 className="font-display text-2xl font-semibold text-ink">Multi-Agent Collaboration</h1></div><p className="mt-1 max-w-2xl text-sm text-slate">Connect specialist agents to supervisors and let agents delegate bounded tasks to one another.</p></div><a href="/dashboard/multi-agent/orchestration" className="rounded-lg border border-mist bg-surface px-4 py-2 text-sm font-medium text-ink">Open Orchestration</a></div>
-    {searchParams.error && <div className="mt-5 rounded-lg border border-danger/30 bg-danger/10 p-3 text-sm text-danger">{searchParams.error}</div>}{searchParams.success && <div className="mt-5 rounded-lg border border-success/30 bg-success/10 p-3 text-sm text-success">{searchParams.success}</div>}
+    {searchParams.error && <div className="mt-5 rounded-lg border border-danger-border bg-danger-soft p-3 text-sm text-danger-ink">{searchParams.error}</div>}{searchParams.success && <div className="mt-5 rounded-lg border border-success-border bg-success-soft p-3 text-sm text-success-ink">{searchParams.success}</div>}
 
     {networks.length > 0 && (
       <section className="mt-7 space-y-6">

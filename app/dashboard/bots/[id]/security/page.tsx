@@ -17,7 +17,7 @@ export default async function BotSecurityPage({ params }: { params: { id: string
     <div className="mt-6 grid gap-4 sm:grid-cols-2">
       {[['Runtime protection', policy.enabled ? 'Enabled' : 'Disabled'],['Prompt injection', policy.blockPromptInjection ? 'Blocked' : 'Allowed'],['Secret detection', policy.blockSecrets ? 'Enabled' : 'Disabled'],['Sensitive tools', policy.requireSensitiveApproval ? 'Approval required' : 'Autonomous'],['Max tool calls', String(policy.maxToolCalls)],['Max model calls', String(policy.maxModelCalls)],['Max runtime', `${policy.maxRunMs} ms`],['Max AI cost', `$${policy.maxCostUsd.toFixed(2)}`]].map(([k,v]) => <div key={k} className="rounded-2xl border border-mist bg-surface p-5"><p className="text-xs text-slate">{k}</p><p className="mt-1 text-lg font-semibold text-ink">{v}</p></div>)}
     </div>
-    {policy.killSwitch && <div className="mt-5 flex gap-3 rounded-2xl border border-ember/30 bg-ember/5 p-4 text-sm text-ember"><AlertTriangle size={18}/><div><strong>Emergency pause is active.</strong><p className="mt-1 text-xs">New runs are blocked until the pause is disabled in the Agent Builder.</p></div></div>}
+    {policy.killSwitch && <div className="mt-5 flex gap-3 rounded-2xl border border-warning-border bg-ember/5 p-4 text-sm text-ember-ink"><AlertTriangle size={18}/><div><strong>Emergency pause is active.</strong><p className="mt-1 text-xs">New runs are blocked until the pause is disabled in the Agent Builder.</p></div></div>}
     <div className="mt-6 rounded-2xl border border-mist bg-paper p-5 text-sm leading-6 text-slate"><strong className="text-ink">Need to change a policy?</strong> Open the Agent Builder → Guardrails. Changes are stored with the agent configuration and enforced server-side.</div>
   </main>;
 }

@@ -202,7 +202,7 @@ export function CreateAgentWizard() {
           <p className="mt-1 text-xs text-slate">These choices help the AI generate a useful first version.</p>
 
           {createError && (
-            <p className="mt-4 rounded-lg border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">{createError}</p>
+            <p className="mt-4 rounded-lg border border-danger-border bg-danger-soft px-4 py-3 text-sm text-danger-ink">{createError}</p>
           )}
 
           <fieldset className="mt-6">
@@ -221,7 +221,7 @@ export function CreateAgentWizard() {
             <legend className="mb-3 text-sm font-medium text-ink">Tone</legend>
             <div className="flex flex-wrap gap-2">
               {TONES.map((t) => (
-                <label key={t.value} className={`cursor-pointer rounded-full border px-3.5 py-2 text-xs font-medium transition ${tone === t.value ? "border-signal bg-signal/10 text-ink" : "border-mist text-ink"}`}>
+                <label key={t.value} className={`cursor-pointer rounded-full border px-3.5 py-2 text-xs font-medium transition ${tone === t.value ? "border-signal bg-signal-soft text-ink" : "border-mist text-ink"}`}>
                   <input type="radio" name="tone" value={t.value} checked={tone === t.value} onChange={() => setTone(t.value)} className="sr-only" />
                   {t.label}
                 </label>
@@ -252,7 +252,7 @@ export function CreateAgentWizard() {
 
       {step === 3 && bot && (
         <section className="rounded-2xl border border-mist bg-surface p-5 shadow-sm sm:p-6">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-signal/10 text-ink"><BookOpen size={20} aria-hidden="true" /></div>
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-signal-soft text-ink"><BookOpen size={20} aria-hidden="true" /></div>
           <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-ink">Step 3 of 6</p>
           <h1 className="mt-1 font-display text-2xl font-semibold">Knowledge</h1>
           <p className="mt-2 max-w-lg text-sm leading-6 text-slate">
@@ -263,7 +263,7 @@ export function CreateAgentWizard() {
           {addedSources.length > 0 && (
             <ul className="mt-5 space-y-1.5">
               {addedSources.map((title, i) => (
-                <li key={i} className="flex items-center gap-2 rounded-lg bg-success/10 px-3 py-2 text-sm text-success">
+                <li key={i} className="flex items-center gap-2 rounded-lg bg-success-soft px-3 py-2 text-sm text-success-ink">
                   <Check size={14} aria-hidden="true" /> {title}
                 </li>
               ))}
@@ -305,7 +305,7 @@ export function CreateAgentWizard() {
 
       {step === 4 && (
         <section className="rounded-2xl border border-mist bg-surface p-5 shadow-sm sm:p-6">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-signal/10 text-ink"><Plug size={20} aria-hidden="true" /></div>
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-signal-soft text-ink"><Plug size={20} aria-hidden="true" /></div>
           <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-ink">Step 4 of 6</p>
           <h1 className="mt-1 font-display text-2xl font-semibold">Integrations</h1>
           <p className="mt-2 max-w-lg text-sm leading-6 text-slate">
@@ -345,7 +345,7 @@ export function CreateAgentWizard() {
 
       {step === 5 && chatBot && (
         <section className="rounded-2xl border border-mist bg-surface p-5 shadow-sm sm:p-6">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-signal/10 text-ink"><MessageSquareText size={20} aria-hidden="true" /></div>
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-signal-soft text-ink"><MessageSquareText size={20} aria-hidden="true" /></div>
           <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-ink">Step 5 of 6</p>
           <h1 className="mt-1 font-display text-2xl font-semibold">Test</h1>
           <p className="mt-2 max-w-lg text-sm leading-6 text-slate">
@@ -365,7 +365,7 @@ export function CreateAgentWizard() {
 
       {step === 6 && bot && (
         <section className="rounded-2xl border border-mist bg-surface p-5 shadow-sm sm:p-6">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-signal/10 text-ink"><Rocket size={20} aria-hidden="true" /></div>
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-signal-soft text-ink"><Rocket size={20} aria-hidden="true" /></div>
           <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-ink">Step 6 of 6</p>
           <h1 className="mt-1 font-display text-2xl font-semibold">Deploy</h1>
           <p className="mt-2 max-w-lg text-sm leading-6 text-slate">
@@ -375,7 +375,7 @@ export function CreateAgentWizard() {
           </p>
 
           {published ? (
-            <div className="mt-5 flex items-center gap-2 rounded-xl border border-success/30 bg-success/10 px-4 py-3 text-sm text-success">
+            <div className="mt-5 flex items-center gap-2 rounded-xl border border-success-border bg-success-soft px-4 py-3 text-sm text-success-ink">
               <Check size={16} aria-hidden="true" /> Published
             </div>
           ) : (

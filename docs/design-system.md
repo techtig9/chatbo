@@ -49,12 +49,22 @@ Components  (Button, Card, Badge, Input)
 | `color/status/warning` | `--color-ember` | `#C2670A` | Attention, not failure |
 | `color/status/danger` | `--color-danger` | `#D33232` | Blocking error |
 
-**Status colour as text.** `ember`, `danger` and `accent2` were tuned to read
-on white. On their own 10% tint they fall below 4.5:1 (measured 3.40, 4.06 and
-4.33). Use `ember-ink` `#9C5307`, `danger-ink` `#B82B2B`, `accent2-ink`
-`#3459C2` whenever the status colour is **text** — each clears 4.5:1 on the
-tint, on paper and on white. Keep the base tokens for fills, borders, dots and
-icons. Same split as `signal` / `signal-ink`.
+**Status colour as text.** The base status tokens were tuned to read on
+white, and do not survive being placed on a tinted surface.
+
+| Text token | Value | Replaces | Why |
+|---|---|---|---|
+| `ember-ink` | `#9C5307` | `ember` | `ember` fails on **every** surface — 3.83:1 on paper, 4.01:1 on white, 3.40:1 on its tint |
+| `danger-ink` | `#B82B2B` | `danger` *on a tint or `elevated`* | 4.06:1 on tint, 4.33:1 on `elevated` |
+| `accent2-ink` | `#3459C2` | `accent2` *on a tint* | 4.33:1 on tint |
+| `success-ink` | `#0E7134` | `success` *on a tint* | 4.52:1 — passes by 0.02, no headroom |
+
+Each clears 4.5:1 on its tint, on paper and on white. Keep the base tokens for
+fills, borders, dots and icons — those are non-text and answer to 3:1. Same
+split as `signal` / `signal-ink`.
+
+`text-ember` should not appear in the codebase at all; the others are safe on
+`paper` and `surface` and only need the `-ink` form on a tinted ground.
 
 **The lime rule.** `signal` is a background/border colour. As text on a
 light surface it measures ~1.2:1 — nowhere near the 4.5:1 minimum. Any
@@ -259,7 +269,7 @@ file in three ways worth knowing before editing it:
 2. **Screens page is empty.** Landing, Dashboard, Agent Builder and
    Marketplace are designed in spec but not laid out.
 3. **Dark mode** is a documented direction, not a shipped theme.
-4. **38 ad-hoc `bg-x/10 text-x` call sites** remain across `app/` — the
-   pattern `components/ui/badge.tsx` used before it moved to tints. They
-   inherit the same contrast shortfall and should migrate to the `*-soft`
-   fills and `-ink` text tokens.
+4. **Ambient `/5` and `/20` washes** (`bg-success/5`, `border-success/20`)
+   are left as alpha. They are decorative washes rather than status
+   surfaces, and nothing sets text directly against them at a contrast
+   that matters.

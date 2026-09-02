@@ -18,13 +18,15 @@
  * Text uses the `-ink` variants where the base token is too light on its
  * own tint. Measured against the tint: ember 3.40:1 and danger 4.06:1 both
  * failed the 4.5:1 minimum (and had already been failing at 3.56:1 / 4.26:1
- * on the old alpha backgrounds), accent2 3.33:1 short at 4.33:1. The `-ink`
- * values clear 4.5:1 on the tint, on paper and on white. The dot keeps the
- * base colour — it is a fill, and it is decorative next to the label.
+ * on the old alpha backgrounds) and accent2 fell short at 4.33:1. `success`
+ * passed at 4.52:1, which is a 0.02 margin rather than a real one, so it
+ * moves too. The `-ink` values clear 4.5:1 on the tint, on paper and on
+ * white. The dot keeps the base colour — it is a fill, not text, and it is
+ * decorative next to a label that already names the status.
  */
 const TONE_CLASSES: Record<string, string> = {
   neutral: "bg-neutral-soft text-slate",
-  success: "bg-success-soft text-success",
+  success: "bg-success-soft text-success-ink",
   warning: "bg-warning-soft text-ember-ink",
   danger: "bg-danger-soft text-danger-ink",
   info: "bg-info-soft text-accent2-ink",

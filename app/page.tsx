@@ -158,7 +158,7 @@ export default function HomePage() {
         <div className="absolute inset-x-0 top-0 -z-10 h-[520px] bg-[radial-gradient(circle_at_50%_10%,rgba(195,245,60,0.16),transparent_55%)]" />
         <div className="mx-auto grid max-w-7xl gap-12 px-5 pb-24 pt-20 sm:px-8 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:pt-28">
           <div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-signal/30 bg-signal/10 px-3 py-1.5 text-xs font-semibold text-ink">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-signal/30 bg-signal-soft px-3 py-1.5 text-xs font-semibold text-ink">
               <span className="h-1.5 w-1.5 rounded-full bg-signal" />
               AI AGENT PLATFORM
             </div>

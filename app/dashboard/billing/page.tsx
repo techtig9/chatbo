@@ -45,7 +45,7 @@ export default async function BillingPage() {
       <h1 className="mt-1 font-display text-2xl font-semibold text-ink">Plan &amp; usage</h1>
 
       {!clientToken && (
-        <div className="mt-5 rounded-lg border border-ember/30 bg-ember/10 px-4 py-3 text-sm text-ink">
+        <div className="mt-5 rounded-lg border border-warning-border bg-warning-soft px-4 py-3 text-sm text-ink">
           Paddle isn&rsquo;t configured yet (missing <code className="mx-1 font-mono text-xs">NEXT_PUBLIC_PADDLE_CLIENT_TOKEN</code>) — upgrade buttons below won&rsquo;t work until it is.
         </div>
       )}
@@ -72,7 +72,7 @@ export default async function BillingPage() {
               <span className="rounded-lg border border-mist px-3.5 py-2 text-xs text-slate">Subscription management unavailable — Paddle isn&rsquo;t fully configured.</span>
             )}
             {managementUrls.cancel && (
-              <a href={managementUrls.cancel} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg border border-danger/30 px-3.5 py-2 text-sm font-medium text-danger hover:bg-danger/10">
+              <a href={managementUrls.cancel} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg border border-danger-border px-3.5 py-2 text-sm font-medium text-danger-ink hover:bg-danger-soft">
                 Cancel
               </a>
             )}

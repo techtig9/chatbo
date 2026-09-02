@@ -92,7 +92,7 @@ export function AgentActionsMenu({ botId, botName, status }: { botId: string; bo
               setOpen(false);
               setDeleteModalOpen(true);
             }}
-            className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-danger hover:bg-danger/10"
+            className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-danger-ink hover:bg-danger-soft"
           >
             <Trash2 size={14} aria-hidden="true" /> Delete
           </button>

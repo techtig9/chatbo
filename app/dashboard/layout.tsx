@@ -91,10 +91,10 @@ export default async function DashboardLayout({
           unreadCount={unreadCount}
         />
         {needsMfaEnrollment && (
-          <div className="flex items-center gap-2 border-b border-ember/30 bg-ember/10 px-6 py-2 text-sm text-ink">
-            <ShieldAlert size={15} className="shrink-0 text-ember" />
+          <div className="flex items-center gap-2 border-b border-warning-border bg-warning-soft px-6 py-2 text-sm text-ink">
+            <ShieldAlert size={15} className="shrink-0 text-ember-ink" />
             This workspace requires two-factor authentication.{" "}
-            <Link href="/dashboard/profile" className="font-medium text-ember hover:underline">
+            <Link href="/dashboard/profile" className="font-medium text-ember-ink hover:underline">
               Set it up now
             </Link>
             — not doing so may limit what you can do here soon.

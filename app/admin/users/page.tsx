@@ -26,7 +26,7 @@ export default async function AdminUsersPage() {
                 <td className="px-4 py-2">
                   <span
                     className={`rounded-full px-2 py-0.5 text-xs ${
-                      u.role === "admin" ? "bg-ember/10 text-ember" : "bg-mist text-slate"
+                      u.role === "admin" ? "bg-warning-soft text-ember-ink" : "bg-neutral-soft text-slate"
                     }`}
                   >
                     {u.role}

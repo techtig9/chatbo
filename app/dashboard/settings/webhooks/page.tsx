@@ -66,7 +66,7 @@ export default async function WebhooksPage({
               <form action={deleteWebhookEndpoint.bind(null, e.id)}>
                 <button
                   type="submit"
-                  className="shrink-0 rounded-lg border border-mist px-3 py-1 text-xs text-slate hover:border-danger hover:text-danger"
+                  className="shrink-0 rounded-lg border border-mist px-3 py-1 text-xs text-slate hover:border-danger hover:text-danger-ink"
                 >
                   Delete
                 </button>

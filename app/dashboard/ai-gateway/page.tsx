@@ -75,8 +75,8 @@ export default async function AIGatewayPage() {
           <div className="flex flex-col items-center gap-1.5">
             {providers.map((p, i) => (
               <div key={p.provider} className="flex w-full flex-col items-center">
-                <div className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm ${p.status === "not_configured" ? "bg-mist text-slate" : "bg-signal/10 text-ink"}`}>
-                  <CircleDot size={12} className={p.status === "healthy" ? "text-success" : p.status === "rate_limited" ? "text-ember" : p.status === "unavailable" ? "text-danger" : "text-slate"} aria-hidden="true" />
+                <div className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm ${p.status === "not_configured" ? "bg-neutral-soft text-slate" : "bg-signal-soft text-ink"}`}>
+                  <CircleDot size={12} className={p.status === "healthy" ? "text-success" : p.status === "rate_limited" ? "text-ember-ink" : p.status === "unavailable" ? "text-danger" : "text-slate"} aria-hidden="true" />
                   <span className="font-medium">{PROVIDER_LABEL[p.provider]}</span>
                 </div>
                 {i < providers.length - 1 && <ArrowDown size={14} className="my-1 text-slate" aria-hidden="true" />}

@@ -231,7 +231,7 @@ export function AgentBuilderShell({
         </form>
 
         {activeTab === "overview" && (
-          <section className="mt-6 rounded-xl border border-danger/30 bg-danger/5 p-4">
+          <section className="mt-6 rounded-xl border border-danger-border bg-danger/5 p-4">
             <h3 className="mb-1 text-sm font-medium text-ink">Delete this agent</h3>
             <p className="mb-3 text-xs text-slate">
               Permanently deletes the agent, its knowledge base, and its conversation history. This can&rsquo;t be undone.

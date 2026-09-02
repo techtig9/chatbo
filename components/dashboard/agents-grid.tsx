@@ -78,12 +78,12 @@ export function AgentsGrid({ agents }: { agents: AgentListItem[] }) {
             >
               <Link href={`/dashboard/bots/${agent.id}/edit`} className="absolute inset-0" aria-label={`Open ${agent.name}`} />
               <div className="relative flex items-start justify-between gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-signal/10 text-ink">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-signal-soft text-ink">
                   <BotIcon size={19} aria-hidden="true" />
                 </div>
                 <div className="flex items-center gap-1.5">
                   {agent.needsAttention && (
-                    <span title="Needs attention" className="flex h-6 w-6 items-center justify-center rounded-lg bg-ember/10 text-ember">
+                    <span title="Needs attention" className="flex h-6 w-6 items-center justify-center rounded-lg bg-warning-soft text-ember-ink">
                       <AlertTriangle size={13} aria-hidden="true" />
                     </span>
                   )}

@@ -67,7 +67,7 @@ export default async function IntegrationsPage({ searchParams }: { searchParams?
                 <Card key={provider.key} variant="primary">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2.5">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-signal/10 text-ink">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-signal-soft text-ink">
                         <Icon size={17} aria-hidden="true" />
                       </span>
                       <div>

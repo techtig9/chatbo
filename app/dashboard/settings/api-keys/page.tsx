@@ -74,7 +74,7 @@ export default async function ApiKeysPage() {
                 <form action={revokeApiKey.bind(null, k.id)}>
                   <button
                     type="submit"
-                    className="rounded-lg border border-mist px-3 py-1 text-xs text-slate hover:border-danger hover:text-danger"
+                    className="rounded-lg border border-mist px-3 py-1 text-xs text-slate hover:border-danger hover:text-danger-ink"
                   >
                     Revoke
                   </button>

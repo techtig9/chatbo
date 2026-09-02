@@ -59,7 +59,7 @@ export function ConnectionMenu({ provider, providerName }: { provider: string; p
           <Link href={`/dashboard/integrations/${provider}`} role="menuitem" className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-ink hover:bg-surface">
             <Settings2 size={14} aria-hidden="true" /> Manage access
           </Link>
-          <button type="button" role="menuitem" onClick={() => { setOpen(false); setConfirmOpen(true); }} className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-danger hover:bg-danger/10">
+          <button type="button" role="menuitem" onClick={() => { setOpen(false); setConfirmOpen(true); }} className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-danger-ink hover:bg-danger-soft">
             <Unplug size={14} aria-hidden="true" /> Disconnect
           </button>
         </div>

@@ -19,13 +19,13 @@ export interface AgentGraphSupervisor {
 }
 
 const STATUS_META: Record<AgentNodeStatus, { label: string; className: string; icon?: typeof Check; spin?: boolean }> = {
-  enabled: { label: "Connected", className: "bg-success/10 text-success", icon: Circle },
-  disabled: { label: "Disabled", className: "bg-mist text-slate", icon: MinusCircle },
-  queued: { label: "Queued", className: "bg-mist text-slate" },
-  running: { label: "Running", className: "bg-signal/10 text-ink", icon: Loader2, spin: true },
-  succeeded: { label: "Succeeded", className: "bg-success/10 text-success", icon: Check },
-  failed: { label: "Failed", className: "bg-danger/10 text-danger", icon: XIcon },
-  cancelled: { label: "Cancelled", className: "bg-mist text-slate", icon: MinusCircle },
+  enabled: { label: "Connected", className: "bg-success-soft text-success-ink", icon: Circle },
+  disabled: { label: "Disabled", className: "bg-neutral-soft text-slate", icon: MinusCircle },
+  queued: { label: "Queued", className: "bg-neutral-soft text-slate" },
+  running: { label: "Running", className: "bg-signal-soft text-ink", icon: Loader2, spin: true },
+  succeeded: { label: "Succeeded", className: "bg-success-soft text-success-ink", icon: Check },
+  failed: { label: "Failed", className: "bg-danger-soft text-danger-ink", icon: XIcon },
+  cancelled: { label: "Cancelled", className: "bg-neutral-soft text-slate", icon: MinusCircle },
 };
 
 function formatMs(ms: number | null): string {
@@ -41,7 +41,7 @@ function AgentCard({ node, emphasized = false }: { node: AgentGraphNode | AgentG
   return (
     <div className={`w-56 rounded-2xl border bg-surface p-4 shadow-sm ${emphasized ? "border-signal/40 shadow-glow-sm" : "border-mist"}`}>
       <div className="flex items-center gap-2.5">
-        <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-mono text-xs font-medium ${emphasized ? "bg-signal/10 text-ink" : "bg-elevated text-ink"}`}>
+        <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-mono text-xs font-medium ${emphasized ? "bg-signal-soft text-ink" : "bg-elevated text-ink"}`}>
           {node.name.charAt(0).toUpperCase()}
         </span>
         <div className="min-w-0 flex-1">

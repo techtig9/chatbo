@@ -30,7 +30,7 @@ export default async function LaunchPage() {
       <p className="mt-2 max-w-2xl text-sm leading-6 text-slate">Use this final checklist before inviting customers or teammates. It covers product setup, AI quality, integrations, billing, and security.</p>
       <div className="mt-7 rounded-xl bg-paper p-4"><div className="flex items-center justify-between text-sm"><span className="font-medium">Launch readiness</span><span className="font-mono text-ink">{done}/{checks.length}</span></div><div className="mt-3 h-2 overflow-hidden rounded-full bg-mist"><div className="h-full bg-signal" style={{ width: `${Math.round(done / checks.length * 100)}%` }} /></div></div>
       <div className="mt-6 divide-y divide-mist rounded-xl border border-mist">
-        {checks.map(([label, ok, href]) => <Link key={label} href={href} className="flex items-center justify-between gap-4 px-4 py-4 hover:bg-paper"><span className="text-sm text-ink">{label}</span><span className={`text-xs font-semibold ${ok ? "text-ink" : "text-ember"}`}>{ok ? "Ready" : "Needs setup"}</span></Link>)}
+        {checks.map(([label, ok, href]) => <Link key={label} href={href} className="flex items-center justify-between gap-4 px-4 py-4 hover:bg-paper"><span className="text-sm text-ink">{label}</span><span className={`text-xs font-semibold ${ok ? "text-ink" : "text-ember-ink"}`}>{ok ? "Ready" : "Needs setup"}</span></Link>)}
       </div>
     </div>
   </main>;
