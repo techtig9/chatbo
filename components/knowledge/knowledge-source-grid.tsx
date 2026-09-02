@@ -109,10 +109,10 @@ export function KnowledgeSourceGrid({
             const { label: typeLabel, icon: TypeIcon } = displayType(source);
             const meta = STATUS_META[source.status];
             return (
-              <div key={source.id} className={`rounded-2xl border bg-surface p-4 ${source.status === "failed" ? "border-danger/30" : "border-mist"}`}>
+              <div key={source.id} className={`rounded-2xl border bg-surface p-4 ${source.status === "failed" ? "border-danger-border" : "border-mist"}`}>
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex min-w-0 items-center gap-2">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-signal/10 text-ink">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-signal-soft text-ink">
                       <TypeIcon size={15} aria-hidden="true" />
                     </span>
                     <div className="min-w-0">
@@ -146,7 +146,7 @@ export function KnowledgeSourceGrid({
                     <button type="button" onClick={() => reindexAction(source.id)} aria-label={`Re-index ${source.title}`} className="rounded-lg p-1.5 text-slate hover:bg-elevated hover:text-ink">
                       <RefreshCw size={14} aria-hidden="true" />
                     </button>
-                    <button type="button" onClick={() => deleteAction(source.id)} aria-label={`Delete ${source.title}`} className="rounded-lg p-1.5 text-slate hover:bg-elevated hover:text-danger">
+                    <button type="button" onClick={() => deleteAction(source.id)} aria-label={`Delete ${source.title}`} className="rounded-lg p-1.5 text-slate hover:bg-elevated hover:text-danger-ink">
                       <Trash2 size={14} aria-hidden="true" />
                     </button>
                   </div>

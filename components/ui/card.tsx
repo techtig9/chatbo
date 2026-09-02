@@ -18,9 +18,13 @@ const VARIANT_CLASSES: Record<string, string> = {
   secondary: "border border-mist bg-elevated",
   metric: "border border-mist bg-surface transition hover:border-signal/30 hover:shadow-glow-sm",
   interactive: "border border-mist bg-surface transition hover:border-signal/40 hover:bg-surface/80 cursor-pointer",
-  warning: "border border-ember/30 bg-ember/10",
-  success: "border border-success/30 bg-success/10",
-  danger: "border border-danger/30 bg-danger/10",
+  // Status variants use the pre-blended tints instead of `bg-x/10`. An alpha
+  // fill composites against whatever sits behind the card, so a status card
+  // dropped inside an `elevated` panel read differently from the same card on
+  // the page. These resolve to one fixed value wherever the card lands.
+  warning: "border border-warning-border bg-warning-soft",
+  success: "border border-success-border bg-success-soft",
+  danger: "border border-danger-border bg-danger-soft",
 };
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {

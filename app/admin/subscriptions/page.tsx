@@ -48,7 +48,7 @@ export default async function AdminSubscriptionsPage({
             />
             <span
               className={`rounded-full px-2 py-0.5 text-xs ${
-                s.status === "active" ? "bg-success/10 text-success" : "bg-mist text-slate"
+                s.status === "active" ? "bg-success-soft text-success-ink" : "bg-neutral-soft text-slate"
               }`}
             >
               {s.status}

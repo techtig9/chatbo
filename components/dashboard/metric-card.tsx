@@ -22,7 +22,7 @@ export function MetricCard({
     <Card variant="metric">
       <div className="flex items-start justify-between">
         <p className="text-xs font-medium uppercase tracking-wide text-slate">{label}</p>
-        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-signal/10 text-ink">
+        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-signal-soft text-ink">
           <Icon size={14} aria-hidden="true" />
         </span>
       </div>

@@ -19,7 +19,7 @@ export default async function OrchestrationPage({ searchParams }: { searchParams
   const name = (id: string) => agents.find((a: any) => a.id === id)?.name || "Unknown agent";
   return <main className="mx-auto max-w-6xl px-6 py-8">
     <div className="flex items-center gap-2"><Network size={23}/><h1 className="font-display text-2xl font-semibold text-ink">Multi-Agent Orchestration</h1></div>
-    <p className="mt-1 max-w-3xl text-sm text-slate">Run bounded parallel, sequential, or supervisor-planned collaborations. Every target must be explicitly connected to the source agent.</p>{searchParams.error && <div className="mt-4 rounded-lg border border-danger/30 bg-danger/10 p-3 text-sm text-danger">{searchParams.error}</div>}{searchParams.success && <div className="mt-4 rounded-lg border border-success/30 bg-success/10 p-3 text-sm text-success">{searchParams.success}</div>}
+    <p className="mt-1 max-w-3xl text-sm text-slate">Run bounded parallel, sequential, or supervisor-planned collaborations. Every target must be explicitly connected to the source agent.</p>{searchParams.error && <div className="mt-4 rounded-lg border border-danger-border bg-danger-soft p-3 text-sm text-danger-ink">{searchParams.error}</div>}{searchParams.success && <div className="mt-4 rounded-lg border border-success-border bg-success-soft p-3 text-sm text-success-ink">{searchParams.success}</div>}
 
     {latestRun && latestRun.specialists.length > 0 && (
       <section className="mt-7">

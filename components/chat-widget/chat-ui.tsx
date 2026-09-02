@@ -358,7 +358,7 @@ export function ChatUI({
                   aria-label="Bad response"
                   onClick={() => submitFeedback(i, m.id!, "down")}
                   className={`rounded p-1 transition ${
-                    m.feedback === "down" ? "text-ember" : "text-mist hover:text-slate"
+                    m.feedback === "down" ? "text-ember-ink" : "text-mist hover:text-slate"
                   }`}
                 >
                   <ThumbsDown size={13} />

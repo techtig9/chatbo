@@ -62,6 +62,46 @@ const config: Config = {
         success: "#0F7A38",
         ember: "#C2670A",
         danger: "#D33232",
+        // Pre-blended status tints. These are what `bg-danger/10` resolves
+        // to *over the paper ground* — computed once, at 10% (borders 30%,
+        // danger-hover 20%). Two reasons they exist as real tokens rather
+        // than staying alpha modifiers: an alpha fill composites against
+        // whatever is behind it, so the same `/10` reads differently on
+        // paper vs. inside an `elevated` panel; and Figma's
+        // setBoundVariableForPaint discards paint opacity outright, so an
+        // alpha-based tint cannot round-trip into the design file at all.
+        // Existing `bg-x/10` call sites still work — these are additive.
+        "danger-soft": "#F6E6E3",
+        "danger-hover": "#F2D2CF",
+        "danger-border": "#EEBEBC",
+        "success-soft": "#E2EDE4",
+        "success-border": "#B4D4BE",
+        "warning-soft": "#F4EBDF",
+        "warning-border": "#E9CEB0",
+        "info-soft": "#E7EBF4",
+        "neutral-soft": "#EAEAE6",
+        "signal-soft": "#E9ECDF",
+        // Text-safe status variants, the same idea as `signal-ink` above.
+        // The base `ember`/`danger`/`accent2` values were tuned to read on
+        // a *white* surface; on their own 10% tint they drop below the
+        // 4.5:1 normal-text minimum (measured: ember 3.40:1, danger 4.06:1,
+        // accent2 4.33:1 — and ember/danger already failed at 3.56 and 4.26
+        // against the pre-tint `bg-x/10`-over-white backgrounds too). These
+        // are darkened just enough to clear 4.5:1 against the tint, paper
+        // and white alike, so a status chip is legible wherever it lands.
+        // Use these when the status colour is TEXT; keep the base tokens
+        // for fills, borders, dots and icons.
+        // `ember` is the strongest case: at 3.83:1 on paper and 4.01:1 on
+        // white it fails the normal-text minimum on *every* surface in the
+        // system, tinted or not — so `text-ember` was never safe anywhere
+        // and `text-ember-ink` replaces it outright, not just on tints.
+        "ember-ink": "#9C5307",
+        "danger-ink": "#B82B2B",
+        "accent2-ink": "#3459C2",
+        // `success` technically passes on its own tint at 4.52:1, but a
+        // 0.02 margin is not a margin — any future nudge to either value
+        // silently drops it under. This restores real headroom (5.09:1).
+        "success-ink": "#0E7134",
       },
       fontFamily: {
         // All three load via CDN <link> in app/layout.tsx (General
@@ -81,6 +121,36 @@ const config: Config = {
         // warmth on hover/active states, not a glow effect.
         glow: "0 1px 2px rgb(12 13 9 / 0.04), 0 8px 20px -6px rgb(12 13 9 / 0.12), 0 0 0 1px rgb(195 245 60 / 0.25)",
         "glow-sm": "0 1px 2px rgb(12 13 9 / 0.03), 0 4px 10px -3px rgb(12 13 9 / 0.10), 0 0 0 1px rgb(195 245 60 / 0.18)",
+        // Elevation scale. `glow`/`glow-sm` above bundle a lime ring into
+        // the shadow, which is right for a hovered accent surface but is
+        // the only depth vocabulary the system had — so every raised thing
+        // borrowed a lime tint whether or not it was accent-related. These
+        // five are neutral and ordered, so depth can say "how far off the
+        // page" independently of "is this the accent". Mirrors the
+        // Elevation/* effect styles in the Figma file.
+        e0: "none",
+        e1: "0 1px 2px rgb(12 13 9 / 0.04)",
+        e2: "0 1px 2px rgb(12 13 9 / 0.03), 0 4px 10px -3px rgb(12 13 9 / 0.10)",
+        e3: "0 1px 2px rgb(12 13 9 / 0.04), 0 8px 20px -6px rgb(12 13 9 / 0.12)",
+        e4: "0 2px 4px rgb(12 13 9 / 0.05), 0 16px 40px -12px rgb(12 13 9 / 0.18)",
+        // Focus halo, split out from the outline it pairs with in
+        // globals.css :focus-visible so it can be composed onto a node
+        // that already carries an elevation.
+        focus: "0 0 0 4px rgb(195 245 60 / 0.35)",
+      },
+      transitionDuration: {
+        // Named durations for the timings that were previously written as
+        // bare numbers across the config and components. The pairing with
+        // intent is the point: anything a user is waiting on stays at or
+        // under `base`, and `deliberate` is reserved for the two places
+        // motion is the message (hero anchor-line, deploy success).
+        // globals.css collapses all of these under prefers-reduced-motion.
+        instant: "100ms",
+        fast: "150ms",
+        base: "200ms",
+        slow: "300ms",
+        slower: "500ms",
+        deliberate: "900ms",
       },
       backgroundImage: {
         // Primary-button fill — the reference's CTAs read as solid lime,

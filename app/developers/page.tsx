@@ -11,7 +11,7 @@ const ENDPOINTS = [
   ["GET", "/api/v1/conversations", "List conversations"],
 ] as const;
 
-const COLORS: Record<string, string> = { GET: "bg-signal/10 text-ink", POST: "bg-ink/10 text-ink", PATCH: "bg-ember/10 text-ember" };
+const COLORS: Record<string, string> = { GET: "bg-signal-soft text-ink", POST: "bg-ink/10 text-ink", PATCH: "bg-warning-soft text-ember-ink" };
 
 export default function DevelopersPage() {
   return (

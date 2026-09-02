@@ -32,7 +32,7 @@ export default async function BotsPage({
         <div className="mt-5 overflow-hidden rounded-3xl border border-mist bg-surface shadow-sm">
           <div className="grid gap-0 lg:grid-cols-[1.1fr_.9fr]">
             <div className="p-8 sm:p-10">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-signal/10 text-ink">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-signal-soft text-ink">
                 <Sparkles size={20} />
               </div>
               <h2 className="mt-6 font-display text-2xl font-semibold">Build your first agent from a description.</h2>

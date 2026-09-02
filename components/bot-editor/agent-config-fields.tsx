@@ -178,7 +178,7 @@ export function AgentToolsFields({ bot, state }: { bot: BotRow; state: AgentConf
               }} className="w-full text-left">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-2 font-semibold text-ink"><Zap size={16} className={enabled ? "text-ink" : "text-slate"} />{tool.name}</div>
-                  <span className={`rounded-full px-2 py-1 text-[10px] font-bold uppercase tracking-wide ${tool.permission === "sensitive" ? "bg-ember/10 text-ember" : tool.permission === "write" ? "bg-accent2/10 text-accent2" : "bg-mist text-slate"}`}>{tool.permission}</span>
+                  <span className={`rounded-full px-2 py-1 text-[10px] font-bold uppercase tracking-wide ${tool.permission === "sensitive" ? "bg-warning-soft text-ember-ink" : tool.permission === "write" ? "bg-info-soft text-accent2-ink" : "bg-neutral-soft text-slate"}`}>{tool.permission}</span>
                 </div>
                 <p className="mt-2 text-xs leading-5 text-slate">{tool.description}</p>
                 <div className="mt-3 flex items-center gap-2 text-[11px] font-medium text-slate">{tool.permission === "sensitive" ? <LockKeyhole size={13} /> : <Check size={13} />}{enabled ? "Enabled — model may call this tool" : "Click to enable"}</div>
@@ -222,7 +222,7 @@ export function AgentSecurityFields({ config, setConfig, setArray }: AgentConfig
           <label className="flex flex-col gap-1 text-xs font-semibold text-ink">Max runtime (ms)<input type="number" min={5000} max={300000} step={1000} value={config.security.maxRunMs} onChange={(e) => setConfig({ ...config, security: { ...config.security, maxRunMs: Number(e.target.value) } })} className="rounded-lg border border-mist bg-surface px-3 py-2 text-xs text-ink" /></label>
           <label className="flex flex-col gap-1 text-xs font-semibold text-ink">Max AI cost / run ($)<input type="number" min={0} max={100} step={0.01} value={config.security.maxCostUsd} onChange={(e) => setConfig({ ...config, security: { ...config.security, maxCostUsd: Number(e.target.value) } })} className="rounded-lg border border-mist bg-surface px-3 py-2 text-xs text-ink" /></label>
         </div>
-        <label className="flex items-center gap-3 rounded-xl border border-danger/30 bg-danger/10 p-3 text-xs font-semibold text-danger"><input type="checkbox" checked={config.security.killSwitch} onChange={(e) => setConfig({ ...config, security: { ...config.security, killSwitch: e.target.checked } })} /> Emergency pause — block all new agent runs</label>
+        <label className="flex items-center gap-3 rounded-xl border border-danger-border bg-danger-soft p-3 text-xs font-semibold text-danger-ink"><input type="checkbox" checked={config.security.killSwitch} onChange={(e) => setConfig({ ...config, security: { ...config.security, killSwitch: e.target.checked } })} /> Emergency pause — block all new agent runs</label>
       </div>
     </div>
   );

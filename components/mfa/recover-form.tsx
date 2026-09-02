@@ -18,7 +18,7 @@ export function RecoverForm() {
 
   if (result?.success) {
     return (
-      <div className="rounded-lg border border-signal/30 bg-signal/10 px-4 py-3 text-sm text-ink">
+      <div className="rounded-lg border border-signal/30 bg-signal-soft px-4 py-3 text-sm text-ink">
         Two-factor authentication has been reset on that account.{" "}
         <Link href="/login" className="text-ink hover:underline">
           Log in

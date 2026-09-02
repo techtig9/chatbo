@@ -86,7 +86,7 @@ export function ConversationList({ conversations }: { conversations: Conversatio
         {filtered.length === 0 ? (
           conversations.length === 0 ? (
             <div className="flex flex-col items-center gap-3 px-4 py-10 text-center">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-signal/10 text-ink">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-signal-soft text-ink">
                 <MessagesSquare size={17} aria-hidden="true" />
               </span>
               <div>
@@ -108,7 +108,7 @@ export function ConversationList({ conversations }: { conversations: Conversatio
                 <li key={c.id}>
                   <Link
                     href={`/dashboard/conversations/${c.id}`}
-                    className={`flex gap-3 border-b border-mist px-4 py-3 transition ${isActive ? "bg-signal/10" : "hover:bg-elevated"}`}
+                    className={`flex gap-3 border-b border-mist px-4 py-3 transition ${isActive ? "bg-signal-soft" : "hover:bg-elevated"}`}
                   >
                     <span className="relative shrink-0">
                       <span className="flex h-9 w-9 items-center justify-center rounded-full bg-elevated font-mono text-xs font-medium text-ink">
@@ -123,11 +123,11 @@ export function ConversationList({ conversations }: { conversations: Conversatio
                       </div>
                       <p className="truncate text-xs text-slate">{c.lastMessagePreview ?? "No messages yet"}</p>
                       <div className="mt-1 flex items-center gap-1.5">
-                        <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-medium ${c.status === "active" ? "bg-accent2/10 text-accent2" : "bg-mist text-slate"}`}>
+                        <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-medium ${c.status === "active" ? "bg-info-soft text-accent2-ink" : "bg-neutral-soft text-slate"}`}>
                           {c.status === "active" ? "unresolved" : "resolved"}
                         </span>
                         {c.isHandoff && (
-                          <span className="flex items-center gap-0.5 rounded-full bg-ember/10 px-1.5 py-0.5 text-[10px] font-medium text-ember">
+                          <span className="flex items-center gap-0.5 rounded-full bg-warning-soft px-1.5 py-0.5 text-[10px] font-medium text-ember-ink">
                             <ArrowRightLeft size={9} aria-hidden="true" /> handoff
                           </span>
                         )}

@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# A new push supersedes the run already in flight for the same ref. Kept off
+# main so pushes there always produce a complete record of what was verified.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Lint, typecheck, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Matches the Node the project is developed against. Next 14.2
+          # supports 18/20/22; pinning avoids a runner default drifting the
+          # build out from under the lockfile.
+          node-version: '22'
+          cache: npm
+
+      # `npm ci` rather than `npm install` — installs exactly what
+      # package-lock.json pins and fails if the lockfile is out of sync with
+      # package.json, which is a real error worth catching here.
+      - name: Install dependencies
+        id: install
+        run: npm ci
+
+      # Each check runs even if an earlier CHECK failed, so one run reports
+      # every problem instead of surfacing them one push at a time — but all
+      # of them are gated on the install, so a bad lockfile reports once
+      # rather than cascading into four "command not found" failures.
+      - name: Lint
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run lint
+
+      - name: Typecheck
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run typecheck
+
+      - name: Unit tests
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm test
+
+      # No env vars are set: the production build must not require secrets to
+      # compile. If a future change makes the build depend on one, this step
+      # is where that shows up, which is the right place to find out.
+      - name: Build
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run build

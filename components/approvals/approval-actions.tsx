@@ -29,7 +29,7 @@ export function ApprovalActions({ approvalId, title }: { approvalId: string; tit
         type="button"
         onClick={() => startTransition(() => decideApproval(approvalId, "rejected", "Rejected from Approval Center"))}
         disabled={pending}
-        className="inline-flex items-center gap-2 rounded-lg border border-danger/30 px-4 py-2 text-sm font-semibold text-danger hover:bg-danger/10 disabled:opacity-50"
+        className="inline-flex items-center gap-2 rounded-lg border border-danger-border px-4 py-2 text-sm font-semibold text-danger-ink hover:bg-danger-soft disabled:opacity-50"
       >
         <XCircle size={16} aria-hidden="true" /> Reject
       </button>
